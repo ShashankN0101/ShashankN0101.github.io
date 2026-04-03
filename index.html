@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shashank Nagarajappa | Engineering Portfolio</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f5f5f3; color: #1a1a1a; line-height: 1.6; }
+
+  /* NAV */
+  nav { background: #1a1a1a; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+  nav .logo { color: #fff; font-size: 1rem; font-weight: 500; letter-spacing: 0.02em; }
+  nav .links { display: flex; gap: 1.5rem; }
+  nav .links a { color: #999; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+  nav .links a:hover { color: #fff; }
+
+  /* HERO */
+  .hero { background: #1a1a1a; color: #fff; padding: 5rem 2rem 4rem; text-align: center; }
+  .hero-initials { width: 72px; height: 72px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 500; color: #fff; margin: 0 auto 1.5rem; border: 1.5px solid #444; }
+  .hero h1 { font-size: 2rem; font-weight: 500; margin-bottom: 0.5rem; }
+  .hero .subtitle { color: #888; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .hero .tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 2rem; }
+  .tag { background: #2a2a2a; border: 0.5px solid #444; color: #bbb; font-size: 0.78rem; padding: 4px 12px; border-radius: 20px; }
+  .hero .contact { color: #666; font-size: 0.83rem; }
+  .hero .contact a { color: #888; text-decoration: none; }
+  .hero .contact a:hover { color: #fff; }
+
+  /* SECTIONS */
+  section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+  .section-label { font-size: 0.75rem; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+  .section-title { font-size: 1.5rem; font-weight: 500; margin-bottom: 0.5rem; }
+  .section-desc { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+  .divider { border: none; border-top: 0.5px solid #e0e0e0; margin: 0; }
+
+  /* PROJECT CARDS */
+  .project-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; }
+  .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px; }
+  .project-title { font-size: 1.1rem; font-weight: 500; }
+  .project-meta { font-size: 0.8rem; color: #888; margin-top: 2px; }
+  .badge { font-size: 0.75rem; padding: 3px 10px; border-radius: 20px; font-weight: 400; }
+  .badge-green { background: #e8f5e9; color: #2e7d32; }
+  .badge-blue { background: #e3f2fd; color: #1565c0; }
+  .badge-amber { background: #fff8e1; color: #e65100; }
+  .badge-gray { background: #f5f5f5; color: #555; }
+
+  .project-body { color: #444; font-size: 0.88rem; margin-bottom: 1.25rem; }
+  .project-body p { margin-bottom: 0.6rem; }
+
+  /* STATS ROW */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin: 1.25rem 0; }
+  .stat { background: #f8f8f6; border-radius: 8px; padding: 12px; text-align: center; }
+  .stat-val { font-size: 1.3rem; font-weight: 500; color: #1a1a1a; }
+  .stat-lbl { font-size: 0.75rem; color: #888; margin-top: 2px; }
+
+  /* PROCESS TABLE */
+  .process-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin: 1rem 0; }
+  .process-table th { background: #f0f0ee; padding: 8px 10px; text-align: left; font-weight: 500; color: #444; border-bottom: 1px solid #e0e0e0; }
+  .process-table td { padding: 8px 10px; border-bottom: 0.5px solid #f0f0f0; color: #444; vertical-align: top; }
+  .process-table tr:last-child td { border-bottom: none; }
+  .sev-high { color: #c62828; font-weight: 500; }
+  .sev-med { color: #e65100; font-weight: 500; }
+  .sev-low { color: #2e7d32; font-weight: 500; }
+  .ap-l { background: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; }
+
+  /* SKILL PILLS */
+  .skill-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
+  .skill-pill { background: #fff; border: 0.5px solid #ddd; border-radius: 20px; padding: 5px 14px; font-size: 0.82rem; color: #444; }
+
+  /* COMPETENCY SECTION */
+  .comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+  .comp-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 10px; padding: 1.25rem; }
+  .comp-card h4 { font-size: 0.88rem; font-weight: 500; margin-bottom: 0.5rem; color: #1a1a1a; }
+  .comp-card p { font-size: 0.8rem; color: #666; line-height: 1.5; }
+
+  /* FOOTER */
+  footer { background: #1a1a1a; color: #666; text-align: center; padding: 2rem; font-size: 0.82rem; }
+  footer a { color: #888; text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.5rem; }
+    .project-header { flex-direction: column; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Shashank Nagarajappa</div>
+  <div class="links">
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-initials">SN</div>
+  <h1>Shashank Nagarajappa</h1>
+  <div class="subtitle">Manufacturing Engineer · NPI Program Manager · MS Project Management @ Northeastern</div>
+  <div class="tags">
+    <span class="tag">NPI Lifecycle</span>
+    <span class="tag">PFMEA / PPAP</span>
+    <span class="tag">EV Hardware</span>
+    <span class="tag">Fixture & Tooling</span>
+    <span class="tag">Process Engineering</span>
+    <span class="tag">Quality Systems</span>
+    <span class="tag">SAP B1</span>
+    <span class="tag">Cross-functional PM</span>
+  </div>
+  <div class="contact">
+    Boston, MA &nbsp;·&nbsp; +1 (857) 200-4039 &nbsp;·&nbsp;
+    <a href="mailto:nagarajappa.s@northeastern.edu">nagarajappa.s@northeastern.edu</a>
+    &nbsp;·&nbsp; CPT Authorized
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Work</div>
+  <div class="section-title">Engineering Projects</div>
+  <div class="section-desc">Selected projects from manufacturing engineering, NPI program management, and quality systems — all executed in production environments.</div>
+
+  <!-- PROJECT 1: PFMEA -->
+  <div class="project-card">
+    <div class="project-header">
+      <div>
+        <div class="project-title">Process FMEA — 3000W Off-Board EV Charger Assembly</div>
+        <div class="project-meta">IPEC India Pvt Ltd &nbsp;·&nbsp; Customer: Ultraviolet &nbsp;·&nbsp; May 2025</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span class="badge badge-green">Completed</span>
+        <span class="badge badge-blue">Quality Engineering</span>
+      </div>
+    </div>
+
+    <div class="project-body">
+      <p>Led the development of a full Process FMEA for the 3000W BG Off-Board Charger Assembly manufactured for Ultraviolette (EV OEM), covering the complete production flow from incoming child part inspection through final packing and dispatch.</p>
+      <p>As the Manufacturing Engineer and CFT member, I was responsible for identifying failure modes across all 8 process stations, assigning severity/occurrence/detection ratings per AIAG-VDA standards, and defining prevention and detection controls for each failure cause.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-val">8</div><div class="stat-lbl">Process stations</div></div>
+      <div class="stat"><div class="stat-val">50+</div><div class="stat-lbl">Failure modes analyzed</div></div>
+      <div class="stat"><div class="stat-val">100%</div><div class="stat-lbl">AP rated Low (L)</div></div>
+      <div class="stat"><div class="stat-val">AIAG-VDA</div><div class="stat-lbl">PFMEA standard</div></div>
+    </div>
+
+    <div style="font-size:0.82rem;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">Process Station Summary</div>
+    <table class="process-table">
+      <thead>
+        <tr>
+          <th>Station</th>
+          <th>Process</th>
+          <th>Max Severity</th>
+          <th>Key Failure Modes</th>
+          <th>AP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>10</td><td>Child Part Receive, Inspect & Store</td><td class="sev-high">8</td><td>Temp/humidity variation, wrong material, shelf life expiry</td><td><span class="ap-l">L</span></td></tr>
+        <tr><td>SA-1</td><td>Input Cable Cutting & Stripping</td><td class="sev-med">6</td><td>Improper cutting/stripping, strand damage, wrong dimension</td><td><span class="ap-l">L</span></td></tr>
+        <tr><td>SA-2</td><td>Grommet Assembly</td><td class="sev-high">8</td><td>Wrong size, missing grommet, damaged/twisted grommet</td><td><span class="ap-l">L</span></td></tr>
+        <tr><td>SA-3</td><td>PCBA & Choke Soldering</td><td class="sev-med">7</td><td>Improper soldering, soldering miss, overheating damage</td><td><span class="ap-l">L</span></td></tr>
+        <tr><td>SA-4</td><td>PCBA Soldering Assembly</td><td class="sev-med">7</td><td>Wrong polarity, improper soldering, overheating</td><td><span class="ap-l">L</span></td></tr>
+        <tr><td>20</td><td>Choke Box Assembly & Sealant</td><td class="sev-high">8</td><td>Wrong sealant, screw missing, improper assembly, torque issues</td><td><span class="ap-l">L</span></td></tr>
+        <tr><td>30</td><td>Potting</td><td class="sev-med">5</td><td>Wrong mix ratio, insufficient potting, leakage, non-curing</td><td><span class="ap-l">L</span></td></tr>
+        <tr><td>40</td><td>EOL Testing</td><td class="sev-high">8</td><td>Functional test failure, wrong program selection</td><td><span class="ap-l">L</span></td></tr>
+        <tr><td>50</td><td>Sticker Assembly</td><td class="sev-med">5</td><td>Missing/misaligned/wrong sticker, poor adhesion</td><td><span class="ap-l">L</span></td></tr>
+        <tr><td>60</td><td>Final Inspection</td><td class="sev-med">5</td><td>Wrong dimensions, fitment/aesthetic failures</td><td><span class="ap-l">L</span></td></tr>
+        <tr><td>70</td><td>Packing & Dispatch</td><td class="sev-high">8</td><td>Wet packaging, packing damage, wrong/missing part in box</td><td><span class="ap-l">L</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="project-body" style="margin-top:1rem;margin-bottom:0;">
+      <p><strong>Controls defined:</strong> Skill matrix, OJT, Work Instructions, SAP/ERP controls, CQI-17 SSA audits, EOL software program controls, meter calibration, supplier PPAP & Cp/Cpk monitoring, and machine-based detection across all stations.</p>
+    </div>
+  </div>
+
+  <!-- PROJECT 2: NPI PROGRAM -->
+  <div class="project-card">
+    <div class="project-header">
+      <div>
+        <div class="project-title">End-to-End NPI Program — EV Charging Hardware (8 Variants, 5 OEMs)</div>
+        <div class="project-meta">IPEC India Pvt Ltd &nbsp;·&nbsp; OEMs: HMCL, Ather, Matter Motors, Simple Energy, Ultraviolet &nbsp;·&nbsp; Aug 2024 – Mar 2025</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span class="badge badge-green">Completed</span>
+        <span class="badge badge-amber">NPI / Program Mgmt</span>
+      </div>
+    </div>
+
+    <div class="project-body">
+      <p>Owned end-to-end NPI lifecycle for 8 EV charging product variants — EV Charging Handles, Vehicle Inlet Assemblies, PRCDs, and Charger Case Assemblies — simultaneously managing programs for 5 OEM customers in the Indian EV market.</p>
+      <p>Responsibilities spanned the full PPAP lifecycle (all 18 elements), proto build execution, tooling and fixture qualification, machine capability validation, operator training, and customer sign-off (PSW). Served as the primary technical POC for all 5 OEMs.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-val">8</div><div class="stat-lbl">Product variants</div></div>
+      <div class="stat"><div class="stat-val">5</div><div class="stat-lbl">OEM customers</div></div>
+      <div class="stat"><div class="stat-val">25+</div><div class="stat-lbl">Proto builds</div></div>
+      <div class="stat"><div class="stat-val">90%</div><div class="stat-lbl">Customer approval rate</div></div>
+      <div class="stat"><div class="stat-val">20+</div><div class="stat-lbl">Operators trained</div></div>
+      <div class="stat"><div class="stat-val">32%</div><div class="stat-lbl">Rework reduction</div></div>
+    </div>
+
+    <div class="project-body" style="margin-bottom:0;">
+      <p><strong>Key deliverables:</strong> PFMEA, Process Flow Diagrams, Control Plans, MBOM/EBOM, incoming & FG inspection criteria, jig/fixture requirement specs, machine capability studies (Cp/Cpk), operator SOPs and work instructions, PPAP audit coordination, PSW sign-off packages.</p>
+    </div>
+  </div>
+
+  <!-- PROJECT 3: PPAP SUPPORT -->
+  <div class="project-card">
+    <div class="project-header">
+      <div>
+        <div class="project-title">PPAP Documentation & Process Capability — 35+ Production Lines</div>
+        <div class="project-meta">IPEC India Pvt Ltd &nbsp;·&nbsp; Graduate Engineer Trainee &nbsp;·&nbsp; Aug 2023 – Jul 2024</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span class="badge badge-green">Completed</span>
+        <span class="badge badge-gray">Quality / Ops Support</span>
+      </div>
+    </div>
+
+    <div class="project-body">
+      <p>Supported senior manufacturing engineers in preparing full PPAP documentation packages — including PFMEA, SOPs, and Cp/Cpk process capability studies — across 35+ active production lines. Also assisted with NPI activities including tooling analysis, machinery evaluation for manufacturing feasibility, and PSS coordination.</p>
+      <p>Contributed to CI initiatives (SQCD framework) focused on safety, quality, cost reduction, and delivery performance, and supported FG testing including over-voltage and under-voltage testing protocols.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-val">35+</div><div class="stat-lbl">Production lines</div></div>
+      <div class="stat"><div class="stat-val">18</div><div class="stat-lbl">PPAP elements covered</div></div>
+      <div class="stat"><div class="stat-val">Cp/Cpk</div><div class="stat-lbl">Capability studies</div></div>
+    </div>
+  </div>
+
+</section>
+
+<hr class="divider">
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Capabilities</div>
+  <div class="section-title">Core Competencies</div>
+
+  <div class="comp-grid">
+    <div class="comp-card">
+      <h4>NPI & PPAP</h4>
+      <p>Full NPI lifecycle (drawing to PSW), all 18 PPAP elements, proto builds, manufacturing feasibility, MBOM/EBOM development</p>
+    </div>
+    <div class="comp-card">
+      <h4>Quality Engineering</h4>
+      <p>PFMEA, Process Flow Diagrams, Control Plans, PDIR, incoming & FG inspection, GD&T, Cp/Cpk process capability</p>
+    </div>
+    <div class="comp-card">
+      <h4>Tooling & Fixtures</h4>
+      <p>Jig/fixture requirement definition, vendor coordination for design & supply, production validation, machine capability studies</p>
+    </div>
+    <div class="comp-card">
+      <h4>Program Management</h4>
+      <p>5 concurrent OEM programs, milestone tracking, ECR/ECN management, customer POC, cross-functional coordination</p>
+    </div>
+    <div class="comp-card">
+      <h4>Operations & CI</h4>
+      <p>SAP B1 (ERP/inventory), SQCD continuous improvement, SOP & work instruction development, operator training</p>
+    </div>
+    <div class="comp-card">
+      <h4>Education</h4>
+      <p>MS Project Management @ Northeastern (GPA 3.8) · BE Electronics & Communication @ VTU · CPT Authorized</p>
+    </div>
+  </div>
+
+  <div class="skill-grid">
+    <span class="skill-pill">SAP B1</span>
+    <span class="skill-pill">Advanced Excel</span>
+    <span class="skill-pill">MS Project</span>
+    <span class="skill-pill">AutoCAD (2D Review)</span>
+    <span class="skill-pill">AI-Assisted Workflows</span>
+    <span class="skill-pill">AIAG-VDA PFMEA</span>
+    <span class="skill-pill">GD&T</span>
+    <span class="skill-pill">Cp/Cpk Studies</span>
+    <span class="skill-pill">MBOM/EBOM</span>
+    <span class="skill-pill">ERP/Inventory Mgmt</span>
+    <span class="skill-pill">Agile PM</span>
+    <span class="skill-pill">Project Finance</span>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact" style="text-align:center; padding: 3rem 2rem;">
+  <div class="section-label">Get in touch</div>
+  <div class="section-title" style="margin-bottom:0.5rem;">Shashank Nagarajappa</div>
+  <p style="color:#666;font-size:0.9rem;margin-bottom:1.5rem;">Open to Manufacturing Engineering, NPI, and Technical Program Management co-op/internship roles · Somerville/Boston MA area · CPT Authorized</p>
+  <p style="font-size:0.9rem;color:#444;">
+    <a href="mailto:nagarajappa.s@northeastern.edu" style="color:#1a1a1a;text-decoration:none;font-weight:500;">nagarajappa.s@northeastern.edu</a>
+    &nbsp;·&nbsp; +1 (857) 200-4039
+  </p>
+</section>
+
+<footer>
+  <p>Shashank Nagarajappa · Engineering Portfolio · 2026 &nbsp;·&nbsp; <a href="mailto:nagarajappa.s@northeastern.edu">nagarajappa.s@northeastern.edu</a></p>
+</footer>
+
+</body>
+</html>
