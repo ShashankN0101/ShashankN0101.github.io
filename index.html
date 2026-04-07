@@ -5,83 +5,101 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shashank Nagarajappa | Engineering Portfolio</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f5f5f3; color: #1a1a1a; line-height: 1.6; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f5f5f3;color:#1a1a1a;line-height:1.6;}
+nav{background:#1a1a1a;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:200;}
+.logo{color:#fff;font-size:1rem;font-weight:500;letter-spacing:.02em;}
+.links{display:flex;gap:1.5rem;}
+.links a{color:#999;text-decoration:none;font-size:.85rem;transition:color .2s;}
+.links a:hover{color:#fff;}
 
-  /* NAV */
-  nav { background: #1a1a1a; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-  nav .logo { color: #fff; font-size: 1rem; font-weight: 500; letter-spacing: 0.02em; }
-  nav .links { display: flex; gap: 1.5rem; }
-  nav .links a { color: #999; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
-  nav .links a:hover { color: #fff; }
+.hero{position:relative;background:#1b2a3a;color:#fff;padding:5rem 2rem 4rem;text-align:center;overflow:hidden;}
+#bg-canvas{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;}
+.hero-content{position:relative;z-index:2;}
+.hero-photo-ring{width:108px;height:108px;border-radius:50%;margin:0 auto 1.5rem;border:2.5px solid #4a8fa8;overflow:hidden;background:#2a3d50;display:flex;align-items:center;justify-content:center;}
+.hero-photo-ring img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.hero h1{font-size:2rem;font-weight:500;margin-bottom:.5rem;}
+.hero .subtitle{color:#94b4c8;font-size:.95rem;margin-bottom:.75rem;}
+.hero .about-text{color:#b0c8d8;font-size:.88rem;max-width:600px;margin:0 auto 1.5rem;line-height:1.75;}
+.tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:2rem;}
+.tag{background:rgba(255,255,255,.07);border:.5px solid rgba(255,255,255,.15);color:#b0c8d8;font-size:.78rem;padding:4px 12px;border-radius:20px;}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem;}
+.btn-resume{background:#fff;color:#1a1a1a;padding:9px 22px;border-radius:24px;font-size:.85rem;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:opacity .2s;}
+.btn-resume:hover{opacity:.88;}
+.hero .contact{color:#6a8fa8;font-size:.83rem;}
+.hero .contact a{color:#8ab4cc;text-decoration:none;}
+.hero .contact a:hover{color:#fff;}
 
-  /* HERO */
-  .hero { background: #1a1a1a; color: #fff; padding: 5rem 2rem 4rem; text-align: center; }
-  .hero-initials { width: 72px; height: 72px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 500; color: #fff; margin: 0 auto 1.5rem; border: 1.5px solid #444; }
-  .hero h1 { font-size: 2rem; font-weight: 500; margin-bottom: 0.5rem; }
-  .hero .subtitle { color: #888; font-size: 0.95rem; margin-bottom: 1.5rem; }
-  .hero .tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 2rem; }
-  .tag { background: #2a2a2a; border: 0.5px solid #444; color: #bbb; font-size: 0.78rem; padding: 4px 12px; border-radius: 20px; }
-  .hero .contact { color: #666; font-size: 0.83rem; }
-  .hero .contact a { color: #888; text-decoration: none; }
-  .hero .contact a:hover { color: #fff; }
+section{max-width:900px;margin:0 auto;padding:3rem 2rem;}
+.section-label{font-size:.75rem;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;}
+.section-title{font-size:1.5rem;font-weight:500;margin-bottom:.5rem;}
+.section-desc{color:#555;font-size:.9rem;margin-bottom:2rem;}
+.divider{border:none;border-top:.5px solid #e0e0e0;margin:0;}
 
-  /* SECTIONS */
-  section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
-  .section-label { font-size: 0.75rem; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
-  .section-title { font-size: 1.5rem; font-weight: 500; margin-bottom: 0.5rem; }
-  .section-desc { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
-  .divider { border: none; border-top: 0.5px solid #e0e0e0; margin: 0; }
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-top:1.5rem;}
+.edu-card{background:#fff;border:.5px solid #e0e0e0;border-radius:12px;padding:1.25rem 1.5rem;}
+.edu-school{font-size:.95rem;font-weight:500;margin-bottom:.25rem;}
+.edu-degree{font-size:.83rem;color:#444;margin-bottom:.25rem;}
+.edu-detail{font-size:.78rem;color:#888;}
+.edu-badge{display:inline-block;background:#e8f5e9;color:#2e7d32;font-size:.72rem;padding:3px 10px;border-radius:20px;margin-top:.5rem;}
 
-  /* PROJECT CARDS */
-  .project-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; }
-  .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px; }
-  .project-title { font-size: 1.1rem; font-weight: 500; }
-  .project-meta { font-size: 0.8rem; color: #888; margin-top: 2px; }
-  .badge { font-size: 0.75rem; padding: 3px 10px; border-radius: 20px; font-weight: 400; }
-  .badge-green { background: #e8f5e9; color: #2e7d32; }
-  .badge-blue { background: #e3f2fd; color: #1565c0; }
-  .badge-amber { background: #fff8e1; color: #e65100; }
-  .badge-gray { background: #f5f5f5; color: #555; }
+.timeline{position:relative;padding-left:1.75rem;margin-top:1rem;}
+.timeline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:1.5px;background:#e0e0e0;}
+.tl-item{position:relative;margin-bottom:2rem;}
+.tl-dot{position:absolute;left:-1.75rem;top:4px;width:13px;height:13px;border-radius:50%;background:#1b2a3a;border:2px solid #f5f5f3;}
+.tl-role{font-size:.9rem;font-weight:500;color:#1a1a1a;}
+.tl-org{font-size:.82rem;color:#555;}
+.tl-period{font-size:.78rem;color:#999;margin-bottom:.25rem;}
 
-  .project-body { color: #444; font-size: 0.88rem; margin-bottom: 1.25rem; }
-  .project-body p { margin-bottom: 0.6rem; }
+.project-card{background:#fff;border:.5px solid #e0e0e0;border-radius:12px;padding:2rem;margin-bottom:1.5rem;}
+.project-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;flex-wrap:wrap;gap:8px;}
+.project-title{font-size:1.1rem;font-weight:500;}
+.project-meta{font-size:.8rem;color:#888;margin-top:2px;}
+.badge{font-size:.75rem;padding:3px 10px;border-radius:20px;}
+.badge-green{background:#e8f5e9;color:#2e7d32;}
+.badge-blue{background:#e3f2fd;color:#1565c0;}
+.badge-amber{background:#fff8e1;color:#e65100;}
+.badge-gray{background:#f5f5f5;color:#555;}
+.project-body{color:#444;font-size:.88rem;margin-bottom:1.25rem;}
+.project-body p{margin-bottom:.6rem;}
 
-  /* STATS ROW */
-  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin: 1.25rem 0; }
-  .stat { background: #f8f8f6; border-radius: 8px; padding: 12px; text-align: center; }
-  .stat-val { font-size: 1.3rem; font-weight: 500; color: #1a1a1a; }
-  .stat-lbl { font-size: 0.75rem; color: #888; margin-top: 2px; }
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;margin:1.25rem 0;}
+.stat{background:#f8f8f6;border-radius:8px;padding:12px;text-align:center;}
+.stat-val{font-size:1.3rem;font-weight:500;color:#1a1a1a;}
+.stat-lbl{font-size:.75rem;color:#888;margin-top:2px;}
 
-  /* PROCESS TABLE */
-  .process-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin: 1rem 0; }
-  .process-table th { background: #f0f0ee; padding: 8px 10px; text-align: left; font-weight: 500; color: #444; border-bottom: 1px solid #e0e0e0; }
-  .process-table td { padding: 8px 10px; border-bottom: 0.5px solid #f0f0f0; color: #444; vertical-align: top; }
-  .process-table tr:last-child td { border-bottom: none; }
-  .sev-high { color: #c62828; font-weight: 500; }
-  .sev-med { color: #e65100; font-weight: 500; }
-  .sev-low { color: #2e7d32; font-weight: 500; }
-  .ap-l { background: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; }
+.proof-label{font-size:.75rem;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:.08em;margin:1rem 0 .5rem;}
+.proof-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:.5rem;}
+.proof-slot{border-radius:8px;overflow:hidden;border:.5px solid #e0e0e0;position:relative;}
+.proof-img-wrap{position:relative;width:100%;height:150px;overflow:hidden;border-radius:8px 8px 0 0;}
+.proof-img{width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(0.92) saturate(0.85);}
+.proof-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,25,40,0.08) 0%,rgba(10,25,40,0.22) 100%);}
+.proof-caption{font-size:.75rem;color:#888;margin-top:.35rem;text-align:center;padding:4px 6px 6px;}
 
-  /* SKILL PILLS */
-  .skill-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
-  .skill-pill { background: #fff; border: 0.5px solid #ddd; border-radius: 20px; padding: 5px 14px; font-size: 0.82rem; color: #444; }
+.table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;}
+.process-table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:540px;}
+.process-table th{background:#f0f0ee;padding:8px 10px;text-align:left;font-weight:500;color:#444;border-bottom:1px solid #e0e0e0;}
+.process-table td{padding:8px 10px;border-bottom:.5px solid #f0f0f0;color:#444;vertical-align:top;}
+.process-table tr:last-child td{border-bottom:none;}
+.sev-high{color:#c62828;font-weight:500;}
+.sev-med{color:#e65100;font-weight:500;}
+.ap-l{background:#e8f5e9;color:#2e7d32;padding:2px 8px;border-radius:10px;font-size:.75rem;}
 
-  /* COMPETENCY SECTION */
-  .comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
-  .comp-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 10px; padding: 1.25rem; }
-  .comp-card h4 { font-size: 0.88rem; font-weight: 500; margin-bottom: 0.5rem; color: #1a1a1a; }
-  .comp-card p { font-size: 0.8rem; color: #666; line-height: 1.5; }
+.skill-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:1rem;}
+.skill-pill{background:#fff;border:.5px solid #ddd;border-radius:20px;padding:5px 14px;font-size:.82rem;color:#444;}
+.comp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1.5rem;}
+.comp-card{background:#fff;border:.5px solid #e0e0e0;border-radius:10px;padding:1.25rem;}
+.comp-card h4{font-size:.88rem;font-weight:500;margin-bottom:.5rem;color:#1a1a1a;}
+.comp-card p{font-size:.8rem;color:#666;line-height:1.5;}
 
-  /* FOOTER */
-  footer { background: #1a1a1a; color: #666; text-align: center; padding: 2rem; font-size: 0.82rem; }
-  footer a { color: #888; text-decoration: none; }
-
-  @media (max-width: 600px) {
-    .hero h1 { font-size: 1.5rem; }
-    .project-header { flex-direction: column; }
-    .stats { grid-template-columns: repeat(2, 1fr); }
-  }
+footer{background:#1a1a1a;color:#666;text-align:center;padding:2rem;font-size:.82rem;}
+footer a{color:#888;text-decoration:none;}
+@media(max-width:600px){
+  .hero h1{font-size:1.5rem;}
+  .project-header{flex-direction:column;}
+  .stats{grid-template-columns:repeat(2,1fr);}
+  .proof-grid{grid-template-columns:repeat(2,1fr);}
+}
 </style>
 </head>
 <body>
@@ -89,135 +107,201 @@
 <nav>
   <div class="logo">Shashank Nagarajappa</div>
   <div class="links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
     <a href="#projects">Projects</a>
     <a href="#skills">Skills</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
-  <div class="hero-initials">SN</div>
-  <h1>Shashank Nagarajappa</h1>
-  <div class="subtitle">Manufacturing Engineer · NPI Program Manager · MS Project Management @ Northeastern</div>
-  <div class="tags">
-    <span class="tag">NPI Lifecycle</span>
-    <span class="tag">PFMEA / PPAP</span>
-    <span class="tag">EV Hardware</span>
-    <span class="tag">Fixture & Tooling</span>
-    <span class="tag">Process Engineering</span>
-    <span class="tag">Quality Systems</span>
-    <span class="tag">SAP B1</span>
-    <span class="tag">Cross-functional PM</span>
-  </div>
-  <div class="contact">
-    Boston, MA &nbsp;·&nbsp; +1 (857) 200-4039 &nbsp;·&nbsp;
-    <a href="mailto:nagarajappa.s@northeastern.edu">nagarajappa.s@northeastern.edu</a>
-    &nbsp;·&nbsp; CPT Authorized
+  <canvas id="bg-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-photo-ring">
+      <img id="hero-img" src="https://i.imgur.com/TECs2JV.jpg" alt="Shashank Nagarajappa" onerror="this.parentElement.innerHTML='<span style=\'font-size:1.6rem;font-weight:500;color:#94b4c8;\'>SN</span>'">
+    </div>
+    <h1>Shashank Nagarajappa</h1>
+    <div class="subtitle">Manufacturing Engineer &nbsp;·&nbsp; NPI Program Manager &nbsp;·&nbsp; MS Project Management @ Northeastern</div>
+    <p class="about-text">Manufacturing engineer with 1.5+ years of hands-on NPI and quality engineering experience at IPEC India, where I led end-to-end PPAP programs for 8 EV hardware variants across 5 OEM customers. Currently pursuing an MS in Project Management at Northeastern (GPA 3.8), combining deep production floor expertise with structured program management skills. Seeking Fall 2026 co-op roles in manufacturing, NPI, quality, or operations across the US.</p>
+    <div class="tags">
+      <span class="tag">NPI Lifecycle</span><span class="tag">PFMEA / PPAP</span><span class="tag">EV Hardware</span>
+      <span class="tag">Fixture &amp; Tooling</span><span class="tag">Process Engineering</span>
+      <span class="tag">Quality Systems</span><span class="tag">SAP B1</span><span class="tag">Cross-functional PM</span>
+    </div>
+    <div class="hero-actions">
+      <a class="btn-resume" href="https://drive.google.com/file/d/1vslzJgCXzUkErS1f2o4nwsyQDjsQzf-q/view?usp=sharing" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Resume
+      </a>
+    </div>
+    <div class="contact">
+      Boston, MA &nbsp;·&nbsp; +1 (857) 200-4039 &nbsp;·&nbsp;
+      <a href="mailto:nagarajappa.s@northeastern.edu">nagarajappa.s@northeastern.edu</a>
+      &nbsp;·&nbsp; CPT Authorized
+    </div>
   </div>
 </div>
 
 <hr class="divider">
 
-<!-- PROJECTS -->
+<section id="about">
+  <div class="section-label">Academic Background</div>
+  <div class="section-title">Education</div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-school">Northeastern University</div>
+      <div class="edu-degree">MS in Project Management</div>
+      <div class="edu-detail">Boston, MA &nbsp;·&nbsp; Jan 2025 – Dec 2026 (Expected)</div>
+      <div class="edu-detail">GPA: 3.8 / 4.0 &nbsp;·&nbsp; Full-time</div>
+      <div class="edu-detail" style="margin-top:.4rem;font-size:.77rem;color:#999;">Scope &amp; Schedule · Project Finance · Agile PM · Quality Management · Ethical Leadership</div>
+      <span class="edu-badge">CPT Authorized</span>
+    </div>
+    <div class="edu-card">
+      <div class="edu-school">Visvesvaraya Technological University (VTU)</div>
+      <div class="edu-degree">BE in Electronics &amp; Communication Engineering</div>
+      <div class="edu-detail">Belagavi, India &nbsp;·&nbsp; Aug 2020 – Jul 2024</div>
+      <div class="edu-detail">CGPA: 7.14 / 10 &nbsp;·&nbsp; First Class</div>
+      <div class="edu-detail" style="margin-top:.4rem;font-size:.77rem;color:#999;">Control Systems · Power Electronics · Industrial Automation · Engineering Statistics</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="experience">
+  <div class="section-label">Career</div>
+  <div class="section-title">Work Experience</div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-period">Sep 2025 – Present</div>
+      <div class="tl-role">Facility Operations &amp; Equipment Technician</div>
+      <div class="tl-org">Northeastern University Campus Recreation · Boston, MA</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-period">Aug 2024 – Mar 2025</div>
+      <div class="tl-role">Manufacturing Engineer</div>
+      <div class="tl-org">IPEC India Pvt Ltd · NPI Lead — 8 variants, 5 OEM customers</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-period">Aug 2023 – Jul 2024</div>
+      <div class="tl-role">Graduate Engineer Trainee</div>
+      <div class="tl-org">IPEC India Pvt Ltd · PPAP &amp; Quality Operations</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-period">Aug 2022 – Sep 2022</div>
+      <div class="tl-role">Engineering Intern — Facility Observation</div>
+      <div class="tl-org">Airports Authority of India (AAI)</div>
+      <div class="tl-org" style="font-size:.8rem;color:#999;margin-top:.2rem;">Observed CNS (Communication, Navigation, Surveillance) systems at a live aviation operations center; prepared technical report on operational workflows and workload management practices.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
 <section id="projects">
   <div class="section-label">Work</div>
   <div class="section-title">Engineering Projects</div>
   <div class="section-desc">Selected projects from manufacturing engineering, NPI program management, and quality systems — all executed in production environments.</div>
 
-  <!-- PROJECT 1: PFMEA -->
   <div class="project-card">
     <div class="project-header">
       <div>
         <div class="project-title">Process FMEA — 3000W Off-Board EV Charger Assembly</div>
-        <div class="project-meta">IPEC India Pvt Ltd &nbsp;·&nbsp; Customer: Ultraviolet &nbsp;·&nbsp; May 2025</div>
+        <div class="project-meta">IPEC India Pvt Ltd &nbsp;·&nbsp; Customer: Ultraviolette &nbsp;·&nbsp; May 2025</div>
       </div>
       <div style="display:flex;gap:6px;flex-wrap:wrap;">
         <span class="badge badge-green">Completed</span>
         <span class="badge badge-blue">Quality Engineering</span>
       </div>
     </div>
-
     <div class="project-body">
       <p>Led the development of a full Process FMEA for the 3000W BG Off-Board Charger Assembly manufactured for Ultraviolette (EV OEM), covering the complete production flow from incoming child part inspection through final packing and dispatch.</p>
-      <p>As the Manufacturing Engineer and CFT member, I was responsible for identifying failure modes across all 8 process stations, assigning severity/occurrence/detection ratings per AIAG-VDA standards, and defining prevention and detection controls for each failure cause.</p>
+      <p>As the Manufacturing Engineer and CFT member, I was responsible for identifying failure modes across all process stations, assigning severity/occurrence/detection ratings per AIAG-VDA standards, and defining prevention and detection controls for each failure cause.</p>
     </div>
-
     <div class="stats">
       <div class="stat"><div class="stat-val">8</div><div class="stat-lbl">Process stations</div></div>
-      <div class="stat"><div class="stat-val">50+</div><div class="stat-lbl">Failure modes analyzed</div></div>
+      <div class="stat"><div class="stat-val">50+</div><div class="stat-lbl">Failure modes</div></div>
       <div class="stat"><div class="stat-val">100%</div><div class="stat-lbl">AP rated Low (L)</div></div>
       <div class="stat"><div class="stat-val">AIAG-VDA</div><div class="stat-lbl">PFMEA standard</div></div>
     </div>
-
-    <div style="font-size:0.82rem;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">Process Station Summary</div>
-    <table class="process-table">
-      <thead>
-        <tr>
-          <th>Station</th>
-          <th>Process</th>
-          <th>Max Severity</th>
-          <th>Key Failure Modes</th>
-          <th>AP</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>10</td><td>Child Part Receive, Inspect & Store</td><td class="sev-high">8</td><td>Temp/humidity variation, wrong material, shelf life expiry</td><td><span class="ap-l">L</span></td></tr>
-        <tr><td>SA-1</td><td>Input Cable Cutting & Stripping</td><td class="sev-med">6</td><td>Improper cutting/stripping, strand damage, wrong dimension</td><td><span class="ap-l">L</span></td></tr>
-        <tr><td>SA-2</td><td>Grommet Assembly</td><td class="sev-high">8</td><td>Wrong size, missing grommet, damaged/twisted grommet</td><td><span class="ap-l">L</span></td></tr>
-        <tr><td>SA-3</td><td>PCBA & Choke Soldering</td><td class="sev-med">7</td><td>Improper soldering, soldering miss, overheating damage</td><td><span class="ap-l">L</span></td></tr>
-        <tr><td>SA-4</td><td>PCBA Soldering Assembly</td><td class="sev-med">7</td><td>Wrong polarity, improper soldering, overheating</td><td><span class="ap-l">L</span></td></tr>
-        <tr><td>20</td><td>Choke Box Assembly & Sealant</td><td class="sev-high">8</td><td>Wrong sealant, screw missing, improper assembly, torque issues</td><td><span class="ap-l">L</span></td></tr>
-        <tr><td>30</td><td>Potting</td><td class="sev-med">5</td><td>Wrong mix ratio, insufficient potting, leakage, non-curing</td><td><span class="ap-l">L</span></td></tr>
-        <tr><td>40</td><td>EOL Testing</td><td class="sev-high">8</td><td>Functional test failure, wrong program selection</td><td><span class="ap-l">L</span></td></tr>
-        <tr><td>50</td><td>Sticker Assembly</td><td class="sev-med">5</td><td>Missing/misaligned/wrong sticker, poor adhesion</td><td><span class="ap-l">L</span></td></tr>
-        <tr><td>60</td><td>Final Inspection</td><td class="sev-med">5</td><td>Wrong dimensions, fitment/aesthetic failures</td><td><span class="ap-l">L</span></td></tr>
-        <tr><td>70</td><td>Packing & Dispatch</td><td class="sev-high">8</td><td>Wet packaging, packing damage, wrong/missing part in box</td><td><span class="ap-l">L</span></td></tr>
-      </tbody>
-    </table>
-
+    <div style="font-size:.82rem;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Process Station Summary</div>
+    <div class="table-wrap">
+      <table class="process-table">
+        <thead><tr><th>Station</th><th>Process</th><th>Max Sev.</th><th>Key Failure Modes</th><th>AP</th></tr></thead>
+        <tbody>
+          <tr><td>10</td><td>Child Part Receive, Inspect &amp; Store</td><td class="sev-high">8</td><td>Temp/humidity variation, wrong material, shelf life expiry</td><td><span class="ap-l">L</span></td></tr>
+          <tr><td>SA-1</td><td>Input Cable Cutting &amp; Stripping</td><td class="sev-med">6</td><td>Improper cutting/stripping, strand damage, wrong dimension</td><td><span class="ap-l">L</span></td></tr>
+          <tr><td>SA-2</td><td>Grommet Assembly</td><td class="sev-high">8</td><td>Wrong size, missing grommet, damaged/twisted grommet</td><td><span class="ap-l">L</span></td></tr>
+          <tr><td>SA-3</td><td>PCBA &amp; Choke Soldering</td><td class="sev-med">7</td><td>Improper soldering, soldering miss, overheating damage</td><td><span class="ap-l">L</span></td></tr>
+          <tr><td>SA-4</td><td>PCBA Soldering Assembly</td><td class="sev-med">7</td><td>Wrong polarity, improper soldering, overheating</td><td><span class="ap-l">L</span></td></tr>
+          <tr><td>20</td><td>Choke Box Assembly &amp; Sealant</td><td class="sev-high">8</td><td>Wrong sealant, screw missing, improper assembly, torque issues</td><td><span class="ap-l">L</span></td></tr>
+          <tr><td>30</td><td>Potting</td><td class="sev-med">5</td><td>Wrong mix ratio, insufficient potting, leakage, non-curing</td><td><span class="ap-l">L</span></td></tr>
+          <tr><td>40</td><td>EOL Testing</td><td class="sev-high">8</td><td>Functional test failure, wrong program selection</td><td><span class="ap-l">L</span></td></tr>
+          <tr><td>50</td><td>Sticker Assembly</td><td class="sev-med">5</td><td>Missing/misaligned/wrong sticker, poor adhesion</td><td><span class="ap-l">L</span></td></tr>
+          <tr><td>60</td><td>Final Inspection</td><td class="sev-med">5</td><td>Wrong dimensions, fitment/aesthetic failures</td><td><span class="ap-l">L</span></td></tr>
+          <tr><td>70</td><td>Packing &amp; Dispatch</td><td class="sev-high">8</td><td>Wet packaging, packing damage, wrong/missing part in box</td><td><span class="ap-l">L</span></td></tr>
+        </tbody>
+      </table>
+    </div>
     <div class="project-body" style="margin-top:1rem;margin-bottom:0;">
-      <p><strong>Controls defined:</strong> Skill matrix, OJT, Work Instructions, SAP/ERP controls, CQI-17 SSA audits, EOL software program controls, meter calibration, supplier PPAP & Cp/Cpk monitoring, and machine-based detection across all stations.</p>
+      <p><strong>Controls defined:</strong> Skill matrix, OJT, Work Instructions, SAP/ERP controls, CQI-17 SSA audits, EOL software program controls, meter calibration, supplier PPAP &amp; Cp/Cpk monitoring, and machine-based detection across all stations.</p>
     </div>
   </div>
 
-  <!-- PROJECT 2: NPI PROGRAM -->
   <div class="project-card">
     <div class="project-header">
       <div>
         <div class="project-title">End-to-End NPI Program — EV Charging Hardware (8 Variants, 5 OEMs)</div>
-        <div class="project-meta">IPEC India Pvt Ltd &nbsp;·&nbsp; OEMs: HMCL, Ather, Matter Motors, Simple Energy, Ultraviolet &nbsp;·&nbsp; Aug 2024 – Mar 2025</div>
+        <div class="project-meta">IPEC India Pvt Ltd &nbsp;·&nbsp; OEMs: HMCL, Ather, Matter Motors, Simple Energy, Ultraviolette &nbsp;·&nbsp; Aug 2024 – Mar 2025</div>
       </div>
       <div style="display:flex;gap:6px;flex-wrap:wrap;">
         <span class="badge badge-green">Completed</span>
         <span class="badge badge-amber">NPI / Program Mgmt</span>
       </div>
     </div>
-
     <div class="project-body">
       <p>Owned end-to-end NPI lifecycle for 8 EV charging product variants — EV Charging Handles, Vehicle Inlet Assemblies, PRCDs, and Charger Case Assemblies — simultaneously managing programs for 5 OEM customers in the Indian EV market.</p>
       <p>Responsibilities spanned the full PPAP lifecycle (all 18 elements), proto build execution, tooling and fixture qualification, machine capability validation, operator training, and customer sign-off (PSW). Served as the primary technical POC for all 5 OEMs.</p>
     </div>
-
     <div class="stats">
       <div class="stat"><div class="stat-val">8+</div><div class="stat-lbl">Product variants</div></div>
       <div class="stat"><div class="stat-val">5+</div><div class="stat-lbl">OEM customers</div></div>
       <div class="stat"><div class="stat-val">25+</div><div class="stat-lbl">Proto builds</div></div>
-      <div class="stat"><div class="stat-val">90%</div><div class="stat-lbl">Customer approval rate</div></div>
+      <div class="stat"><div class="stat-val">90%</div><div class="stat-lbl">Approval rate</div></div>
       <div class="stat"><div class="stat-val">100+</div><div class="stat-lbl">Operators trained</div></div>
       <div class="stat"><div class="stat-val">32%</div><div class="stat-lbl">Rework reduction</div></div>
     </div>
 
+    <div class="proof-label">Assembly Floor — Proof of Work · IPEC India Pvt Ltd</div>
+    <div class="proof-grid">
+      <div class="proof-slot">
+        <div class="proof-img-wrap"><img src="https://i.imgur.com/aQQg5sK.jpg" alt="ESD-safe PCB assembly line" class="proof-img"></div>
+        <div class="proof-caption">ESD-safe PCB assembly line — operator building EV charger PCBAs</div>
+      </div>
+      <div class="proof-slot">
+        <div class="proof-img-wrap"><img src="https://i.imgur.com/3ldkreJ.jpg" alt="Torque tool station with IPEC bins" class="proof-img"></div>
+        <div class="proof-caption">Torque tool station — charger case assembly, IPEC-branded bins &amp; 5S floor tape</div>
+      </div>
+      <div class="proof-slot">
+        <div class="proof-img-wrap"><img src="https://i.imgur.com/4OLwfBc.jpg" alt="Full production floor" class="proof-img"></div>
+        <div class="proof-caption">Full production floor — dual assembly lines, andon lights, document carts</div>
+      </div>
+    </div>
+
     <div class="project-body" style="margin-bottom:0;">
-      <p><strong>Key deliverables:</strong> PFMEA, Process Flow Diagrams, Control Plans, MBOM/EBOM, incoming & FG inspection criteria, jig/fixture requirement specs, machine capability studies (Cp/Cpk), operator SOPs and work instructions, PPAP audit coordination, PSW sign-off packages.</p>
+      <p><strong>Key deliverables:</strong> PFMEA, Process Flow Diagrams, Control Plans, MBOM/EBOM, incoming &amp; FG inspection criteria, jig/fixture requirement specs, machine capability studies (Cp/Cpk), operator SOPs and work instructions, PPAP audit coordination, PSW sign-off packages.</p>
     </div>
   </div>
 
-  <!-- PROJECT 3: PPAP SUPPORT -->
   <div class="project-card">
     <div class="project-header">
       <div>
-        <div class="project-title">PPAP Documentation & Process Capability — 35+ Production Lines</div>
+        <div class="project-title">PPAP Documentation &amp; Process Capability — 35+ Production Lines</div>
         <div class="project-meta">IPEC India Pvt Ltd &nbsp;·&nbsp; Graduate Engineer Trainee &nbsp;·&nbsp; Aug 2023 – Jul 2024</div>
       </div>
       <div style="display:flex;gap:6px;flex-wrap:wrap;">
@@ -225,88 +309,241 @@
         <span class="badge badge-gray">Quality / Ops Support</span>
       </div>
     </div>
-
     <div class="project-body">
       <p>Supported senior manufacturing engineers in preparing full PPAP documentation packages — including PFMEA, SOPs, and Cp/Cpk process capability studies — across 35+ active production lines. Also assisted with NPI activities including tooling analysis, machinery evaluation for manufacturing feasibility, and PSS coordination.</p>
       <p>Contributed to CI initiatives (SQCD framework) focused on safety, quality, cost reduction, and delivery performance, and supported FG testing including over-voltage and under-voltage testing protocols.</p>
     </div>
-
     <div class="stats">
       <div class="stat"><div class="stat-val">35+</div><div class="stat-lbl">Production lines</div></div>
-      <div class="stat"><div class="stat-val">18</div><div class="stat-lbl">PPAP elements covered</div></div>
+      <div class="stat"><div class="stat-val">18</div><div class="stat-lbl">PPAP elements</div></div>
       <div class="stat"><div class="stat-val">Cp/Cpk</div><div class="stat-lbl">Capability studies</div></div>
     </div>
   </div>
-
 </section>
 
 <hr class="divider">
 
-<!-- SKILLS -->
 <section id="skills">
   <div class="section-label">Capabilities</div>
   <div class="section-title">Core Competencies</div>
-
   <div class="comp-grid">
-    <div class="comp-card">
-      <h4>NPI & PPAP</h4>
-      <p>Full NPI lifecycle (drawing to PSW), all 18 PPAP elements, proto builds, manufacturing feasibility, MBOM/EBOM development</p>
-    </div>
-    <div class="comp-card">
-      <h4>Quality Engineering</h4>
-      <p>PFMEA, Process Flow Diagrams, Control Plans, PDIR, incoming & FG inspection, GD&T, Cp/Cpk process capability</p>
-    </div>
-    <div class="comp-card">
-      <h4>Tooling & Fixtures</h4>
-      <p>Jig/fixture requirement definition, vendor coordination for design & supply, production validation, machine capability studies</p>
-    </div>
-    <div class="comp-card">
-      <h4>Program Management</h4>
-      <p>5 concurrent OEM programs, milestone tracking, ECR/ECN management, customer POC, cross-functional coordination</p>
-    </div>
-    <div class="comp-card">
-      <h4>Operations & CI</h4>
-      <p>SAP B1 (ERP/inventory), SQCD continuous improvement, SOP & work instruction development, operator training</p>
-    </div>
-    <div class="comp-card">
-      <h4>Education</h4>
-      <p>MS Project Management @ Northeastern (GPA 3.8) · BE Electronics & Communication @ VTU · CPT Authorized</p>
-    </div>
+    <div class="comp-card"><h4>NPI &amp; PPAP</h4><p>Full NPI lifecycle (drawing to PSW), all 18 PPAP elements, proto builds, manufacturing feasibility, MBOM/EBOM development</p></div>
+    <div class="comp-card"><h4>Quality Engineering</h4><p>PFMEA, Process Flow Diagrams, Control Plans, PDIR, incoming &amp; FG inspection, GD&amp;T, Cp/Cpk process capability</p></div>
+    <div class="comp-card"><h4>Tooling &amp; Fixtures</h4><p>Jig/fixture requirement definition, vendor coordination, production validation, machine capability studies</p></div>
+    <div class="comp-card"><h4>Program Management</h4><p>5 concurrent OEM programs, milestone tracking, ECR/ECN management, customer POC, cross-functional coordination</p></div>
+    <div class="comp-card"><h4>Operations &amp; CI</h4><p>SAP B1 (ERP/inventory), SQCD continuous improvement, SOP &amp; work instruction development, operator training</p></div>
+    <div class="comp-card"><h4>Education</h4><p>MS Project Management @ Northeastern (GPA 3.8) · BE Electronics &amp; Communication @ VTU · CPT Authorized</p></div>
   </div>
-
   <div class="skill-grid">
-    <span class="skill-pill">SAP B1</span>
-    <span class="skill-pill">Advanced Excel</span>
-    <span class="skill-pill">MS Project</span>
-    <span class="skill-pill">AutoCAD (2D Review)</span>
-    <span class="skill-pill">AI-Assisted Workflows</span>
-    <span class="skill-pill">AIAG-VDA PFMEA</span>
-    <span class="skill-pill">GD&T</span>
-    <span class="skill-pill">Cp/Cpk Studies</span>
-    <span class="skill-pill">MBOM/EBOM</span>
-    <span class="skill-pill">ERP/Inventory Mgmt</span>
-    <span class="skill-pill">Agile PM</span>
-    <span class="skill-pill">Project Finance</span>
+    <span class="skill-pill">SAP B1</span><span class="skill-pill">Advanced Excel</span><span class="skill-pill">MS Project</span>
+    <span class="skill-pill">AutoCAD (2D Review)</span><span class="skill-pill">AI-Assisted Workflows</span>
+    <span class="skill-pill">AIAG-VDA PFMEA</span><span class="skill-pill">GD&amp;T</span><span class="skill-pill">Cp/Cpk Studies</span>
+    <span class="skill-pill">MBOM/EBOM</span><span class="skill-pill">ERP/Inventory Mgmt</span>
+    <span class="skill-pill">Agile PM</span><span class="skill-pill">Project Finance</span>
+    <span class="skill-pill">APQP</span><span class="skill-pill">Lean Manufacturing</span><span class="skill-pill">5S / Visual Management</span>
   </div>
 </section>
 
 <hr class="divider">
 
-<!-- CONTACT -->
-<section id="contact" style="text-align:center; padding: 3rem 2rem;">
+<section id="contact" style="text-align:center;padding:3rem 2rem;">
   <div class="section-label">Get in touch</div>
-  <div class="section-title" style="margin-bottom:0.5rem;">Shashank Nagarajappa</div>
-  <p style="color:#666;font-size:0.9rem;margin-bottom:1.5rem;">Open to Manufacturing Engineering, Quality Engineer, NPI Engineer, Project Management and Technical Program Management</p>
- <p style="color:#666;font-size:0.9rem;margin-bottom:1.5rem;">Co-Op/internship roles · Open to Relocation across United States · CPT Authorized</p>
-  <p style="font-size:0.9rem;color:#444;">
+  <div class="section-title" style="margin-bottom:.5rem;">Shashank Nagarajappa</div>
+  <p style="color:#666;font-size:.9rem;margin-bottom:.75rem;">Open to Manufacturing Engineering, Quality Engineer, NPI Engineer, Project Management and Technical Program Management</p>
+  <p style="color:#666;font-size:.9rem;margin-bottom:1.5rem;">Co-op / Internship · Open to Relocation across United States · CPT Authorized</p>
+  <p style="font-size:.9rem;color:#444;margin-bottom:1.25rem;">
     <a href="mailto:nagarajappa.s@northeastern.edu" style="color:#1a1a1a;text-decoration:none;font-weight:500;">nagarajappa.s@northeastern.edu</a>
     &nbsp;·&nbsp; +1 (857) 200-4039
   </p>
+  <a class="btn-resume" href="https://drive.google.com/file/d/1vslzJgCXzUkErS1f2o4nwsyQDjsQzf-q/view?usp=sharing" target="_blank" rel="noopener" style="background:#1b2a3a;color:#fff;">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Download Resume
+  </a>
 </section>
 
 <footer>
   <p>Shashank Nagarajappa · Master's Portfolio · 2026 &nbsp;·&nbsp; <a href="mailto:nagarajappa.s@northeastern.edu">nagarajappa.s@northeastern.edu</a></p>
 </footer>
 
+<script>
+/* ── HERO BG: animated manufacturing scene ── */
+(function(){
+  const cv=document.getElementById('bg-canvas');
+  const cx=cv.getContext('2d');
+  let W,H,t=0,workers=[],conveyorItems=[],sparks=[],bubbles=[];
+
+  function resize(){W=cv.offsetWidth;H=cv.offsetHeight;cv.width=W;cv.height=H;init();}
+
+  function init(){
+    workers=[];conveyorItems=[];sparks=[];bubbles=[];
+    // Workers seated at assembly bench
+    const ws=[{x:.15,y:.6},{x:.32,y:.6},{x:.55,y:.58},{x:.72,y:.6}];
+    ws.forEach((w,i)=>workers.push({x:w.x*W,y:w.y*H,phase:i*1.2,role:i}));
+    // Conveyor items
+    for(let i=0;i<6;i++) conveyorItems.push({x:(i/6)*W,speed:40+Math.random()*20});
+    // Speech/thought bubbles (cross-func communication)
+    bubbles=[
+      {from:0,to:1,text:'PFMEA ✓',t:0,period:5},
+      {from:1,to:2,text:'PSW ready',t:1.8,period:5},
+      {from:2,to:3,text:'Proto OK',t:3.2,period:5},
+      {from:3,to:0,text:'OEM sign-off',t:4.1,period:5},
+    ];
+  }
+
+  function drawWorker(cx,wx,wy,phase,role){
+    const bob=Math.sin(t*2+phase)*2;
+    // body
+    cx.fillStyle='rgba(100,160,200,0.55)';
+    cx.beginPath();cx.ellipse(wx,wy+bob+8,10,14,0,0,Math.PI*2);cx.fill();
+    // head
+    cx.fillStyle='rgba(210,170,130,0.75)';
+    cx.beginPath();cx.arc(wx,wy+bob-8,7,0,Math.PI*2);cx.fill();
+    // arm motion (working)
+    const armAngle=Math.sin(t*3+phase)*0.4;
+    cx.strokeStyle='rgba(100,160,200,0.5)';cx.lineWidth=3;
+    cx.beginPath();
+    cx.moveTo(wx-4,wy+bob+2);
+    cx.lineTo(wx-4+Math.cos(armAngle)*14,wy+bob+2+Math.sin(armAngle)*8);
+    cx.stroke();
+    // PCB board in hand
+    if(role===0||role===2){
+      cx.fillStyle='rgba(30,160,80,0.5)';
+      cx.fillRect(wx+4,wy+bob,16,10);
+    }
+    // clipboard (PM role)
+    if(role===3){
+      cx.fillStyle='rgba(220,200,150,0.55)';
+      cx.fillRect(wx+6,wy+bob-2,14,18);
+      cx.strokeStyle='rgba(150,130,80,0.5)';cx.lineWidth=1;
+      cx.strokeRect(wx+6,wy+bob-2,14,18);
+    }
+  }
+
+  function drawConveyor(cx){
+    // Belt
+    const by=H*0.82;
+    cx.fillStyle='rgba(40,60,80,0.35)';
+    cx.fillRect(0,by,W,18);
+    cx.strokeStyle='rgba(80,120,160,0.25)';cx.lineWidth=1;
+    // belt lines
+    for(let i=0;i<12;i++){
+      const bx=((i/12)*W+(t*18))%(W+40)-20;
+      cx.beginPath();cx.moveTo(bx,by);cx.lineTo(bx,by+18);cx.stroke();
+    }
+    // items on belt
+    conveyorItems.forEach(ci=>{
+      ci.x-=0.3;
+      if(ci.x<-30)ci.x=W+30;
+      cx.fillStyle='rgba(30,80,140,0.45)';
+      cx.fillRect(ci.x-12,by-14,24,14);
+      cx.strokeStyle='rgba(60,140,200,0.35)';cx.lineWidth=1;
+      cx.strokeRect(ci.x-12,by-14,24,14);
+      // green PCB inside box
+      cx.fillStyle='rgba(30,150,70,0.4)';
+      cx.fillRect(ci.x-8,by-11,16,8);
+    });
+  }
+
+  function drawSparks(cx){
+    // Soldering sparks near worker 0 and 2
+    [workers[0],workers[2]].forEach((w,i)=>{
+      if(!w)return;
+      for(let s=0;s<3;s++){
+        const sa=Math.sin(t*8+s*2+i)*1.8;
+        const sd=8+s*3;
+        const sx=w.x+10+Math.cos(sa)*sd;
+        const sy=w.y-4+Math.sin(sa)*sd*0.5;
+        cx.fillStyle=`rgba(255,200,50,${0.5-s*0.12})`;
+        cx.beginPath();cx.arc(sx,sy,1.5-s*0.3,0,Math.PI*2);cx.fill();
+      }
+    });
+  }
+
+  function drawBubbles(cx){
+    bubbles.forEach(b=>{
+      const phase=(t+b.t)%b.period/b.period;
+      if(phase<0.15||phase>0.75)return;
+      const alpha=phase<0.25?((phase-0.15)/0.1):phase>0.65?((0.75-phase)/0.1):1;
+      const w1=workers[b.from],w2=workers[b.to];
+      if(!w1||!w2)return;
+      const mx=(w1.x+w2.x)/2;
+      const my=Math.min(w1.y,w2.y)-30-Math.sin(phase*Math.PI)*20;
+      cx.save();cx.globalAlpha=alpha*0.85;
+      cx.fillStyle='rgba(30,50,80,0.7)';
+      cx.beginPath();
+      const tw=cx.measureText(b.text).width+16;
+      const th=20;
+      cx.roundRect?cx.roundRect(mx-tw/2,my-th/2,tw,th,6):cx.rect(mx-tw/2,my-th/2,tw,th);
+      cx.fill();
+      cx.strokeStyle='rgba(100,160,220,0.5)';cx.lineWidth=.7;cx.stroke();
+      cx.fillStyle='rgba(180,220,255,0.95)';
+      cx.font='500 10px Segoe UI,sans-serif';cx.textAlign='center';cx.textBaseline='middle';
+      cx.fillText(b.text,mx,my);
+      // connector line
+      cx.strokeStyle='rgba(100,160,220,0.3)';cx.lineWidth=1;
+      cx.beginPath();cx.moveTo(w1.x,w1.y-16);cx.lineTo(mx,my+th/2);cx.stroke();
+      cx.restore();
+    });
+  }
+
+  function drawGrid(cx){
+    cx.strokeStyle='rgba(60,100,140,0.08)';cx.lineWidth=.5;
+    const gs=40;
+    for(let x=0;x<W;x+=gs){cx.beginPath();cx.moveTo(x,0);cx.lineTo(x,H);cx.stroke();}
+    for(let y=0;y<H;y+=gs){cx.beginPath();cx.moveTo(0,y);cx.lineTo(W,y);cx.stroke();}
+  }
+
+  function drawBench(cx){
+    const by=H*0.68;
+    cx.fillStyle='rgba(30,55,80,0.4)';
+    cx.fillRect(0,by,W,10);
+    // monitors above bench
+    [0.12,0.30,0.52,0.70].forEach(px=>{
+      const mx=px*W,my=by-38;
+      cx.fillStyle='rgba(20,40,60,0.5)';cx.fillRect(mx,my,30,22);
+      cx.fillStyle='rgba(30,80,160,0.4)';cx.fillRect(mx+2,my+2,26,16);
+      // screen content lines
+      for(let l=0;l<3;l++){
+        cx.fillStyle='rgba(100,200,160,0.4)';
+        cx.fillRect(mx+4,my+5+l*4,12+Math.random()*8,2);
+      }
+      cx.fillStyle='rgba(40,60,80,0.5)';cx.fillRect(mx+13,my+22,4,6);
+      cx.fillStyle='rgba(30,55,80,0.5)';cx.fillRect(mx+8,my+28,14,2);
+    });
+  }
+
+  function drawAndonLights(cx){
+    [0.25,0.5,0.75].forEach((px,i)=>{
+      const ax=px*W,ay=H*0.12;
+      const pulse=Math.sin(t*2+i*2.1)>.6;
+      cx.fillStyle=pulse?'rgba(50,200,80,0.7)':'rgba(50,200,80,0.2)';
+      cx.beginPath();cx.arc(ax,ay,6,0,Math.PI*2);cx.fill();
+      cx.fillStyle='rgba(200,50,50,0.15)';
+      cx.beginPath();cx.arc(ax,ay+14,6,0,Math.PI*2);cx.fill();
+      // pole
+      cx.strokeStyle='rgba(80,110,140,0.3)';cx.lineWidth=2;
+      cx.beginPath();cx.moveTo(ax,ay+20);cx.lineTo(ax,H*0.68);cx.stroke();
+    });
+  }
+
+  function frame(){
+    cx.clearRect(0,0,W,H);
+    t+=0.016;
+    drawGrid(cx);
+    drawAndonLights(cx);
+    drawBench(cx);
+    drawConveyor(cx);
+    workers.forEach((w,i)=>drawWorker(cx,w.x,w.y,w.phase,w.role));
+    drawSparks(cx);
+    drawBubbles(cx);
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize',()=>{resize();});
+  resize();frame();
+})();
+
+
+</script>
 </body>
 </html>
