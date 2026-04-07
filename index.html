@@ -15,9 +15,9 @@ nav{background:#1a1a1a;padding:1rem 2rem;display:flex;justify-content:space-betw
 
 .hero{position:relative;background:#1b2a3a;color:#fff;padding:5rem 2rem 4rem;text-align:center;overflow:hidden;}
 #bg-canvas{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;}
-.hero-content{position:relative;z-index:2;}
-.hero-photo-ring{width:108px;height:108px;border-radius:50%;margin:0 auto 1.5rem;border:2.5px solid #4a8fa8;overflow:hidden;background:#2a3d50;display:flex;align-items:center;justify-content:center;}
-.hero-photo-ring img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.hero-content{position:relative;z-index:2;background:rgba(15,28,42,0.72);max-width:720px;margin:0 auto;border-radius:18px;padding:2.5rem 2rem;backdrop-filter:blur(2px);}
+.hero-photo-ring{width:140px;height:140px;border-radius:50%;margin:0 auto 1.5rem;border:3px solid #4a8fa8;overflow:hidden;background:#2a3d50;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 5px rgba(74,143,168,0.18);}
+.hero-photo-ring img{width:115%;height:115%;object-fit:cover;object-position:center 15%;}
 .hero h1{font-size:2rem;font-weight:500;margin-bottom:.5rem;}
 .hero .subtitle{color:#94b4c8;font-size:.95rem;margin-bottom:.75rem;}
 .hero .about-text{color:#b0c8d8;font-size:.88rem;max-width:600px;margin:0 auto 1.5rem;line-height:1.75;}
@@ -366,180 +366,204 @@ footer a{color:#888;text-decoration:none;}
 </footer>
 
 <script>
-/* ── HERO BG: animated manufacturing scene ── */
+/* ── HERO BG: manufacturing scene confined to sides/corners ── */
 (function(){
   const cv=document.getElementById('bg-canvas');
   const cx=cv.getContext('2d');
-  let W,H,t=0,workers=[],conveyorItems=[],sparks=[],bubbles=[];
+  let W,H,t=0,panels=[];
 
-  function resize(){W=cv.offsetWidth;H=cv.offsetHeight;cv.width=W;cv.height=H;init();}
+  function resize(){
+    W=cv.offsetWidth;H=cv.offsetHeight;
+    cv.width=W;cv.height=H;
+    buildPanels();
+  }
 
-  function init(){
-    workers=[];conveyorItems=[];sparks=[];bubbles=[];
-    // Workers seated at assembly bench
-    const ws=[{x:.15,y:.6},{x:.32,y:.6},{x:.55,y:.58},{x:.72,y:.6}];
-    ws.forEach((w,i)=>workers.push({x:w.x*W,y:w.y*H,phase:i*1.2,role:i}));
-    // Conveyor items
-    for(let i=0;i<6;i++) conveyorItems.push({x:(i/6)*W,speed:40+Math.random()*20});
-    // Speech/thought bubbles (cross-func communication)
-    bubbles=[
-      {from:0,to:1,text:'PFMEA ✓',t:0,period:5},
-      {from:1,to:2,text:'PSW ready',t:1.8,period:5},
-      {from:2,to:3,text:'Proto OK',t:3.2,period:5},
-      {from:3,to:0,text:'OEM sign-off',t:4.1,period:5},
+  /* We draw ONLY inside 4 corner panels and 2 side strips,
+     leaving the center ~50% of width untouched */
+  function buildPanels(){
+    const sw=Math.min(200,W*0.22); // side strip width
+    panels=[
+      {x:0,       y:0, w:sw,   h:H},   // left strip
+      {x:W-sw,    y:0, w:sw,   h:H},   // right strip
     ];
   }
 
-  function drawWorker(cx,wx,wy,phase,role){
-    const bob=Math.sin(t*2+phase)*2;
-    // body
-    cx.fillStyle='rgba(100,160,200,0.55)';
-    cx.beginPath();cx.ellipse(wx,wy+bob+8,10,14,0,0,Math.PI*2);cx.fill();
-    // head
-    cx.fillStyle='rgba(210,170,130,0.75)';
+  /* ── scene elements per panel ── */
+  const workers=[];
+  const convItems=[];
+  const sparks=[];
+  const bubbles=[
+    {text:'PFMEA ✓', tOff:0,   period:6},
+    {text:'PSW ready',tOff:2,  period:6},
+    {text:'Proto OK', tOff:3.5,period:6},
+    {text:'ECR done', tOff:4.8,period:6},
+  ];
+  let wInit=false;
+
+  function initWorkers(){
+    if(wInit)return; wInit=true;
+    const sw=Math.min(200,W*0.22);
+    // 2 workers per side strip
+    [[sw*0.3,H*0.58],[sw*0.72,H*0.62],[W-sw*0.72,H*0.58],[W-sw*0.3,H*0.62]].forEach((p,i)=>{
+      workers.push({x:p[0],y:p[1],phase:i*1.4,role:i%2});
+    });
+    // conveyor items along bottom of each strip
+    for(let i=0;i<4;i++) convItems.push({x:i%2===0?Math.random()*sw:(W-Math.random()*sw), side:i<2?0:1, speed:0.4+Math.random()*0.2});
+  }
+
+  function drawFloorLine(px,py,pw){
+    cx.fillStyle='rgba(25,50,70,0.5)';
+    cx.fillRect(px,py,pw,8);
+  }
+
+  function drawMonitor(mx,my){
+    cx.fillStyle='rgba(18,36,56,0.8)';cx.fillRect(mx,my,28,20);
+    cx.fillStyle='rgba(20,70,140,0.6)';cx.fillRect(mx+2,my+2,24,14);
+    for(let l=0;l<3;l++){cx.fillStyle=`rgba(80,200,140,${0.3+l*0.1})`;cx.fillRect(mx+4,my+5+l*4,10+l*2,2);}
+  }
+
+  function drawWorker(wx,wy,phase,role){
+    const bob=Math.sin(t*2+phase)*2.5;
+    const armA=Math.sin(t*3+phase)*0.45;
+    cx.fillStyle='rgba(80,140,190,0.7)';
+    cx.beginPath();cx.ellipse(wx,wy+bob+10,9,13,0,0,Math.PI*2);cx.fill();
+    cx.fillStyle='rgba(200,155,110,0.85)';
     cx.beginPath();cx.arc(wx,wy+bob-8,7,0,Math.PI*2);cx.fill();
-    // arm motion (working)
-    const armAngle=Math.sin(t*3+phase)*0.4;
-    cx.strokeStyle='rgba(100,160,200,0.5)';cx.lineWidth=3;
+    cx.strokeStyle='rgba(80,140,190,0.6)';cx.lineWidth=3;
     cx.beginPath();
-    cx.moveTo(wx-4,wy+bob+2);
-    cx.lineTo(wx-4+Math.cos(armAngle)*14,wy+bob+2+Math.sin(armAngle)*8);
+    cx.moveTo(wx-3,wy+bob+3);
+    cx.lineTo(wx-3+Math.cos(armA)*14,wy+bob+3+Math.sin(armA)*7);
     cx.stroke();
-    // PCB board in hand
-    if(role===0||role===2){
-      cx.fillStyle='rgba(30,160,80,0.5)';
-      cx.fillRect(wx+4,wy+bob,16,10);
+    if(role===0){
+      cx.fillStyle='rgba(25,140,65,0.7)';
+      cx.fillRect(wx+8,wy+bob+3,18,11);
+      cx.fillStyle='rgba(240,190,40,0.6)';
+      cx.fillRect(wx+11,wy+bob+6,4,4);cx.fillRect(wx+18,wy+bob+6,4,4);
+    } else {
+      cx.fillStyle='rgba(215,195,140,0.65)';
+      cx.fillRect(wx+7,wy+bob-2,13,17);
+      cx.strokeStyle='rgba(140,120,70,0.4)';cx.lineWidth=0.8;
+      cx.strokeRect(wx+7,wy+bob-2,13,17);
     }
-    // clipboard (PM role)
-    if(role===3){
-      cx.fillStyle='rgba(220,200,150,0.55)';
-      cx.fillRect(wx+6,wy+bob-2,14,18);
-      cx.strokeStyle='rgba(150,130,80,0.5)';cx.lineWidth=1;
-      cx.strokeRect(wx+6,wy+bob-2,14,18);
-    }
-  }
-
-  function drawConveyor(cx){
-    // Belt
-    const by=H*0.82;
-    cx.fillStyle='rgba(40,60,80,0.35)';
-    cx.fillRect(0,by,W,18);
-    cx.strokeStyle='rgba(80,120,160,0.25)';cx.lineWidth=1;
-    // belt lines
-    for(let i=0;i<12;i++){
-      const bx=((i/12)*W+(t*18))%(W+40)-20;
-      cx.beginPath();cx.moveTo(bx,by);cx.lineTo(bx,by+18);cx.stroke();
-    }
-    // items on belt
-    conveyorItems.forEach(ci=>{
-      ci.x-=0.3;
-      if(ci.x<-30)ci.x=W+30;
-      cx.fillStyle='rgba(30,80,140,0.45)';
-      cx.fillRect(ci.x-12,by-14,24,14);
-      cx.strokeStyle='rgba(60,140,200,0.35)';cx.lineWidth=1;
-      cx.strokeRect(ci.x-12,by-14,24,14);
-      // green PCB inside box
-      cx.fillStyle='rgba(30,150,70,0.4)';
-      cx.fillRect(ci.x-8,by-11,16,8);
-    });
-  }
-
-  function drawSparks(cx){
-    // Soldering sparks near worker 0 and 2
-    [workers[0],workers[2]].forEach((w,i)=>{
-      if(!w)return;
+    // soldering sparks
+    if(role===0){
       for(let s=0;s<3;s++){
-        const sa=Math.sin(t*8+s*2+i)*1.8;
-        const sd=8+s*3;
-        const sx=w.x+10+Math.cos(sa)*sd;
-        const sy=w.y-4+Math.sin(sa)*sd*0.5;
-        cx.fillStyle=`rgba(255,200,50,${0.5-s*0.12})`;
-        cx.beginPath();cx.arc(sx,sy,1.5-s*0.3,0,Math.PI*2);cx.fill();
+        const sa=Math.sin(t*9+s*2.1+phase)*2;
+        const sd=7+s*3;
+        cx.fillStyle=`rgba(255,195,40,${0.55-s*0.14})`;
+        cx.beginPath();cx.arc(wx+10+Math.cos(sa)*sd,wy+bob+Math.sin(sa)*sd*0.5,1.4-s*0.3,0,Math.PI*2);cx.fill();
       }
+    }
+  }
+
+  function drawConveyorItem(ix,iy,pw){
+    cx.fillStyle='rgba(22,65,120,0.55)';
+    cx.fillRect(ix-11,iy-12,22,12);
+    cx.strokeStyle='rgba(50,120,190,0.4)';cx.lineWidth=0.8;
+    cx.strokeRect(ix-11,iy-12,22,12);
+    cx.fillStyle='rgba(25,140,65,0.45)';
+    cx.fillRect(ix-7,iy-9,14,7);
+  }
+
+  function drawAndon(ax,ay){
+    const pulse=Math.sin(t*2.2+ax)>0.5;
+    cx.fillStyle=pulse?'rgba(40,195,70,0.9)':'rgba(40,195,70,0.2)';
+    cx.beginPath();cx.arc(ax,ay,5,0,Math.PI*2);cx.fill();
+    cx.fillStyle='rgba(190,40,40,0.18)';
+    cx.beginPath();cx.arc(ax,ay+12,5,0,Math.PI*2);cx.fill();
+  }
+
+  function drawBubble(bx,by,text,alpha){
+    const tw=cx.measureText(text).width+14;
+    const th=18;
+    cx.save();cx.globalAlpha=alpha;
+    cx.fillStyle='rgba(15,35,58,0.82)';
+    const r=5;
+    cx.beginPath();cx.moveTo(bx-tw/2+r,by-th/2);cx.lineTo(bx+tw/2-r,by-th/2);
+    cx.quadraticCurveTo(bx+tw/2,by-th/2,bx+tw/2,by-th/2+r);
+    cx.lineTo(bx+tw/2,by+th/2-r);cx.quadraticCurveTo(bx+tw/2,by+th/2,bx+tw/2-r,by+th/2);
+    cx.lineTo(bx-tw/2+r,by+th/2);cx.quadraticCurveTo(bx-tw/2,by+th/2,bx-tw/2,by+th/2-r);
+    cx.lineTo(bx-tw/2,by-th/2+r);cx.quadraticCurveTo(bx-tw/2,by-th/2,bx-tw/2+r,by-th/2);
+    cx.closePath();cx.fill();
+    cx.strokeStyle='rgba(80,150,210,0.55)';cx.lineWidth=0.7;cx.stroke();
+    cx.fillStyle='rgba(180,220,255,1)';
+    cx.font='500 9px Segoe UI,sans-serif';cx.textAlign='center';cx.textBaseline='middle';
+    cx.fillText(text,bx,by);
+    cx.restore();
+  }
+
+  function drawSideScene(px,py,pw,ph,side){
+    /* faint grid */
+    cx.strokeStyle='rgba(50,90,130,0.07)';cx.lineWidth=0.5;
+    for(let gx=px;gx<px+pw;gx+=35){cx.beginPath();cx.moveTo(gx,py);cx.lineTo(gx,py+ph);cx.stroke();}
+    for(let gy=py;gy<py+ph;gy+=35){cx.beginPath();cx.moveTo(px,gy);cx.lineTo(px+pw,gy);cx.stroke();}
+
+    /* bench line */
+    const benchY=py+ph*0.7;
+    drawFloorLine(px,benchY,pw);
+
+    /* monitors on bench */
+    const mxArr=side===0?[px+pw*0.1,px+pw*0.55]:[px+pw*0.1,px+pw*0.55];
+    mxArr.forEach(mx=>drawMonitor(mx,benchY-26));
+
+    /* andon lights top */
+    [0.25,0.65].forEach(p=>drawAndon(px+pw*p,py+ph*0.08));
+
+    /* pole */
+    cx.strokeStyle='rgba(70,100,130,0.25)';cx.lineWidth=1.5;
+    [0.25,0.65].forEach(p=>{
+      cx.beginPath();cx.moveTo(px+pw*p,py+ph*0.14);cx.lineTo(px+pw*p,benchY);cx.stroke();
+    });
+
+    /* conveyor belt bottom */
+    const beltY=py+ph*0.88;
+    cx.fillStyle='rgba(28,50,70,0.45)';cx.fillRect(px,beltY,pw,14);
+    for(let bi=0;bi<6;bi++){
+      const bx=((bi/6)*pw+(t*15*(side===0?1:-1)))%pw;
+      cx.strokeStyle='rgba(60,100,140,0.2)';cx.lineWidth=0.7;
+      cx.beginPath();cx.moveTo(px+bx,beltY);cx.lineTo(px+bx,beltY+14);cx.stroke();
+    }
+
+    /* workers */
+    const wLeft=side===0?[workers[0],workers[1]]:[workers[2],workers[3]];
+    wLeft.forEach(w=>{if(w)drawWorker(w.x,w.y,w.phase,w.role);});
+
+    /* conveyor items */
+    convItems.filter(c=>c.side===side).forEach(ci=>{
+      ci.x+=side===0?ci.speed:-ci.speed;
+      if(side===0&&ci.x>px+pw+14)ci.x=px-14;
+      if(side===1&&ci.x<px-14)ci.x=px+pw+14;
+      drawConveyorItem(ci.x,beltY,pw);
     });
   }
 
-  function drawBubbles(cx){
-    bubbles.forEach(b=>{
-      const phase=(t+b.t)%b.period/b.period;
-      if(phase<0.15||phase>0.75)return;
-      const alpha=phase<0.25?((phase-0.15)/0.1):phase>0.65?((0.75-phase)/0.1):1;
-      const w1=workers[b.from],w2=workers[b.to];
-      if(!w1||!w2)return;
-      const mx=(w1.x+w2.x)/2;
-      const my=Math.min(w1.y,w2.y)-30-Math.sin(phase*Math.PI)*20;
-      cx.save();cx.globalAlpha=alpha*0.85;
-      cx.fillStyle='rgba(30,50,80,0.7)';
-      cx.beginPath();
-      const tw=cx.measureText(b.text).width+16;
-      const th=20;
-      cx.roundRect?cx.roundRect(mx-tw/2,my-th/2,tw,th,6):cx.rect(mx-tw/2,my-th/2,tw,th);
-      cx.fill();
-      cx.strokeStyle='rgba(100,160,220,0.5)';cx.lineWidth=.7;cx.stroke();
-      cx.fillStyle='rgba(180,220,255,0.95)';
-      cx.font='500 10px Segoe UI,sans-serif';cx.textAlign='center';cx.textBaseline='middle';
-      cx.fillText(b.text,mx,my);
-      // connector line
-      cx.strokeStyle='rgba(100,160,220,0.3)';cx.lineWidth=1;
-      cx.beginPath();cx.moveTo(w1.x,w1.y-16);cx.lineTo(mx,my+th/2);cx.stroke();
-      cx.restore();
-    });
-  }
-
-  function drawGrid(cx){
-    cx.strokeStyle='rgba(60,100,140,0.08)';cx.lineWidth=.5;
-    const gs=40;
-    for(let x=0;x<W;x+=gs){cx.beginPath();cx.moveTo(x,0);cx.lineTo(x,H);cx.stroke();}
-    for(let y=0;y<H;y+=gs){cx.beginPath();cx.moveTo(0,y);cx.lineTo(W,y);cx.stroke();}
-  }
-
-  function drawBench(cx){
-    const by=H*0.68;
-    cx.fillStyle='rgba(30,55,80,0.4)';
-    cx.fillRect(0,by,W,10);
-    // monitors above bench
-    [0.12,0.30,0.52,0.70].forEach(px=>{
-      const mx=px*W,my=by-38;
-      cx.fillStyle='rgba(20,40,60,0.5)';cx.fillRect(mx,my,30,22);
-      cx.fillStyle='rgba(30,80,160,0.4)';cx.fillRect(mx+2,my+2,26,16);
-      // screen content lines
-      for(let l=0;l<3;l++){
-        cx.fillStyle='rgba(100,200,160,0.4)';
-        cx.fillRect(mx+4,my+5+l*4,12+Math.random()*8,2);
-      }
-      cx.fillStyle='rgba(40,60,80,0.5)';cx.fillRect(mx+13,my+22,4,6);
-      cx.fillStyle='rgba(30,55,80,0.5)';cx.fillRect(mx+8,my+28,14,2);
-    });
-  }
-
-  function drawAndonLights(cx){
-    [0.25,0.5,0.75].forEach((px,i)=>{
-      const ax=px*W,ay=H*0.12;
-      const pulse=Math.sin(t*2+i*2.1)>.6;
-      cx.fillStyle=pulse?'rgba(50,200,80,0.7)':'rgba(50,200,80,0.2)';
-      cx.beginPath();cx.arc(ax,ay,6,0,Math.PI*2);cx.fill();
-      cx.fillStyle='rgba(200,50,50,0.15)';
-      cx.beginPath();cx.arc(ax,ay+14,6,0,Math.PI*2);cx.fill();
-      // pole
-      cx.strokeStyle='rgba(80,110,140,0.3)';cx.lineWidth=2;
-      cx.beginPath();cx.moveTo(ax,ay+20);cx.lineTo(ax,H*0.68);cx.stroke();
+  function drawBubbles(){
+    const bPositions=[
+      {x:Math.min(180,W*0.20)*0.5, y:H*0.35},
+      {x:Math.min(180,W*0.20)*0.5, y:H*0.5},
+      {x:W-Math.min(180,W*0.20)*0.5, y:H*0.35},
+      {x:W-Math.min(180,W*0.20)*0.5, y:H*0.5},
+    ];
+    bubbles.forEach((b,i)=>{
+      const phase=(t+b.tOff)%b.period/b.period;
+      if(phase<0.12||phase>0.78)return;
+      const alpha=phase<0.22?((phase-0.12)/0.1):phase>0.68?((0.78-phase)/0.1):0.9;
+      drawBubble(bPositions[i].x,bPositions[i].y,b.text,alpha);
     });
   }
 
   function frame(){
     cx.clearRect(0,0,W,H);
     t+=0.016;
-    drawGrid(cx);
-    drawAndonLights(cx);
-    drawBench(cx);
-    drawConveyor(cx);
-    workers.forEach((w,i)=>drawWorker(cx,w.x,w.y,w.phase,w.role));
-    drawSparks(cx);
-    drawBubbles(cx);
+    initWorkers();
+    const sw=Math.min(200,W*0.22);
+    drawSideScene(0,0,sw,H,0);
+    drawSideScene(W-sw,0,sw,H,1);
+    drawBubbles();
     requestAnimationFrame(frame);
   }
 
-  window.addEventListener('resize',()=>{resize();});
+  window.addEventListener('resize',()=>{wInit=false;workers.length=0;convItems.length=0;resize();});
   resize();frame();
 })();
 
